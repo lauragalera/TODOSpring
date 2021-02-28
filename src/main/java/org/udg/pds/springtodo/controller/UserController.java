@@ -24,7 +24,6 @@ public class UserController extends BaseController {
   @PostMapping(path="/login")
   @JsonView(Views.Private.class)
   public User login(HttpSession session, @Valid @RequestBody LoginUser user) {
-
     checkNotLoggedIn(session);
 
     User u = userService.matchPassword(user.username, user.password);

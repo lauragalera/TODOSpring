@@ -32,9 +32,9 @@ public class GroupController extends BaseController {
         return groupService.getGroup(userId, id);
     }
 
-    @PostMapping(path="/{gid}/members/{id}")
+    @PostMapping(path="/{grid}/members/{id}")
     public String addMember(HttpSession session,
-                          @PathVariable("gid") Long groupId, @PathVariable("id") Long memberId) {
+                          @PathVariable("grid") Long groupId, @PathVariable("id") Long memberId) {
 
         Long userId = getLoggedUser(session);
         groupService.addMemberToGroup(userId, groupId, memberId);

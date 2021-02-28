@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity(name = "groups") //per SQL, pk group es una paraula reservada
 public class Group implements Serializable {
@@ -32,9 +34,22 @@ public class Group implements Serializable {
     @JoinColumn(name = "fk_owner")
     private User owner;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<User> members = new ArrayList<>();
+
     @JsonView(Views.Private.class)
     public Long getId() {
         return id;
+    }
+
+    @JsonIgnore
+    public User getUser() {
+        return owner;
+    }
+
+
+    public void addMember(User user) {
+        members.add(user);
     }
 
     public void setUser(User user) {
